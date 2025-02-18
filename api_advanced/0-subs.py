@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """DOC"""
-import  requests
+import requests
 
 
 def number_of_subscribers(subreddit):
