@@ -1,12 +1,26 @@
 #!/usr/bin/python3
 """
-0-main
+Return the number of subscribers
+from any subreddit given
 """
-import sys
+import requests
 
-if __name__ == '__main__':
-    number_of_subscribers = __import__('0-subs').number_of_subscribers
-    if len(sys.argv) < 2:
-        print("Please pass an argument for the subreddit to search.")
-    else:
-        print("{:d}".format(number_of_subscribers(sys.argv[1])))
+def number_of_subscribers(subreddit):
+    url = f'https://www.reddit.com/r/{subreddit}/about.json'
+    headers = {'User-Agent': 'Myapi-app'}
+    
+    try:
+        # Make the request, disable redirects to prevent following search results page
+        response = requests.get(url, headers=headers, allow_redirects=False)
+        
+        # If the response code is 200, extract the subscriber count
+        if response.status_code == 200:
+            data = response.json()
+            return data['data']['subscribers']
+        
+    except requests.exceptions.RequestException:
+        # Handle any network-related errors
+        pass
+
+    # If the subreddit is invalid or there is any error, return 0
+    return 0
