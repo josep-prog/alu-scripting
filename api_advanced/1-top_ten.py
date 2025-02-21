@@ -2,6 +2,7 @@
 """DOCS"""
 import requests
 
+
 def top_ten(subreddit):
     """Fetch and print the top 10 hot post titles of a subreddit."""
     reddit_url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
