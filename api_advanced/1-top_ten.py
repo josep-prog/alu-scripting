@@ -1,9 +1,19 @@
 #!/usr/bin/python3
-"""Fetch and print the titles of the first 10 hot posts in a subreddit."""
+"""
+Module to fetch and print the titles of the first 10 hot posts in a subreddit.
+"""
 import requests
 
 def top_ten(subreddit):
-    """Print  the titles of the first 10 hot posts for a given subreddit."""
+    """
+    Print the titles of the first 10 hot posts for a given subreddit.
+
+    Args:
+        subreddit (str): The name of the subreddit.
+
+    Returns:
+        None: Prints the titles or None if the subreddit is invalid.
+    """
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, headers=headers, allow_redirects=False)
