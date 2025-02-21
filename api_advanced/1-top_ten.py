@@ -3,7 +3,7 @@
 import requests
 
 def top_ten(subreddit):
-    """Print the titles of the first 10 hot posts for a given subreddit."""
+    """Print  the titles of the first 10 hot posts for a given subreddit."""
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     headers = {'User-Agent': 'Mozilla/5.0'}
     response = requests.get(url, headers=headers, allow_redirects=False)
