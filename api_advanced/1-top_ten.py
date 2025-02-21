@@ -3,26 +3,32 @@
 
 import requests
 
+
 def top_ten(subreddit):
-    """Main function"""
+    """Fetch and print the top 10 hot post titles from a subreddit."""
     URL = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    HEADERS = {"User-Agent": "Mozilla/5.0"}  # Updated user-agent
+    HEADERS = {"User-Agent": "Mozilla/5.0"}
 
     try:
-        RESPONSE = requests.get(URL, headers=HEADERS, allow_redirects=False)
+        response = requests.get(URL, headers=HEADERS, allow_redirects=False)
+
+        # Check if the request was successful
+        if response.status_code != 200:
+            print(None)
+            return
+
+        data = response.json().get("data")
         
-        # Check if subreddit is valid
-        if RESPONSE.status_code != 200:
+        # Check if data is None
+        if not data or "children" not in data:
             print(None)
             return
 
-        DATA = RESPONSE.json().get("data", {}).get("children", [])
-        if not DATA:
-            print(None)
-            return
+        hot_posts = data.get("children", [])
 
-        for post in DATA:
-            print(post.get("data", {}).get("title"))
+        # Print titles if available
+        for post in hot_posts:
+            print(post.get("data", {}).get("title", "Unknown Title"))
 
     except requests.exceptions.RequestException:
         print(None)
